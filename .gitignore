@@ -1,0 +1,22 @@
+# macOS Finder metadata
+.DS_Store
+
+# Editor and local workspace files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Vercel CLI's link to the project
+.vercel/
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
