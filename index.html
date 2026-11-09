@@ -703,14 +703,6 @@ body[data-state="OUTRO"] #hud,body[data-state="WIN"] #hud{opacity:0;pointer-even
   align-items:center;justify-content:center;pointer-events:auto;overflow:hidden;
   -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 #overlay.hidden{display:none!important}
-/* --- THE LESSON (lesson/) — over the whole window, not the stage: it lays
-   itself out for a window of its own. Loaded unseen while the story plays;
-   NEXT fades it in, and its end fades it off the round. --- */
-#lesson{position:fixed;inset:0;width:100%;height:100%;border:0;z-index:20;
-  background:#06141b;opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .45s ease,visibility 0s linear .45s}
-#lesson.is-open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .45s ease}
-@media (prefers-reduced-motion: reduce){ #lesson,#lesson.is-open{transition:none} }
 #overlay.titleScreen{display:block;background:transparent;
   -webkit-backdrop-filter:none;backdrop-filter:none}
 #overlay.titleScreen::before{content:"";position:absolute;inset:0;pointer-events:none;
@@ -769,34 +761,8 @@ body[data-state="OUTRO"] #hud,body[data-state="WIN"] #hud{opacity:0;pointer-even
 .cardActions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
 .cardActions .bigBtn{margin-top:22px}
 
-/* --- NEXT ▶ — the story's hand-off to the lesson, in the corner a "go on"
-   key lives, as the storyboard places it --- */
-#cmdNext{position:absolute;right:34px;bottom:30px;margin:0;visibility:hidden}
-#cmdNext.is-in{visibility:visible;animation:gelPop .32s cubic-bezier(.2,.8,.3,1) backwards}
-/* the story is a scene, not a round: the round's keys and readouts stand
-   down for all of it */
-body.in-story #hud,body[data-state="COMMANDER"] #hud{opacity:0;pointer-events:none}
-
-/* beat 1's line is the story's TITLE, set the way the game sets its own name:
-   the wordmark's slime green, a heavy dark outline, a block shadow under it —
-   not a caption box. It springs in over the world and stays for the beat. */
-#caption.is-title{top:31%;transform:translate(-50%,-50%);max-width:1100px;
-  padding:0;border:0;background:none;box-shadow:none;
-  font-family:'Luckiest Guy','Chakra Petch','Noto Sans Devanagari','Noto Sans Gujarati','Noto Sans Telugu','Noto Sans Oriya','Noto Serif Oriya',cursive;
-  font-size:84px;font-weight:400;letter-spacing:2px;line-height:1.08;color:#cdf24e;
-  -webkit-text-stroke:8px #14240a;paint-order:stroke fill;
-  text-shadow:0 7px 0 #0b1505,0 16px 26px rgba(0,0,0,.6);
-  animation-name:storyTitleIn;animation-duration:.7s}
-html:not([lang="en"]) #caption.is-title{letter-spacing:0;font-size:72px}
-/* its own name: the title screen's titleIn is declared further down and,
-   sharing the name, won — and that one never centres, so this title slid in
-   off to the right and snapped into place */
-@keyframes storyTitleIn{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-6deg)}
-  65%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(1deg)}
-  100%{opacity:1;transform:translate(-50%,-50%)}}
 /* the speaker: her face, in a porthole on the bar's left, beside every line
-   she says — the voice of the story has a face from its first caption on */
+   she says */
 #caption.has-speaker{padding-left:96px}
 #caption.has-speaker::before{content:"";position:absolute;left:16px;top:50%;
   width:60px;height:60px;margin-top:-30px;border-radius:50%;
@@ -931,7 +897,7 @@ html:not([lang="en"]) .sheetBtn{text-transform:none;letter-spacing:0}
 @media (prefers-reduced-motion: reduce){
   .titleScreenInner,.playTitleBtn,
   #fireBtn,.shakeX,#hintBtn.is-calling,
-  #trigSheet,.trigPanel,#trigTable td.is-answer,#cmdNext,
+  #trigSheet,.trigPanel,#trigTable td.is-answer,
   .shell,#shellBar,#caption{animation:none!important}
   .playTitleBtn:hover{transform:none}
   .gelBtn,.bigBtn,.playTitleBtn,.sheetBtn{animation:none!important}
@@ -1230,78 +1196,6 @@ html:not([lang="en"]) .sheetBtn{text-transform:none;letter-spacing:0}
    "or": "ପୁଣି ଖେଳନ୍ତୁ",
    "gu": "ફરી રમો"
   },
-  "NEXT": {
-   "en": "NEXT",
-   "hi": "आगे",
-   "mr": "पुढे",
-   "te": "తదుపరి",
-   "or": "ପରବର୍ତ୍ତୀ",
-   "gu": "આગળ"
-  },
-  "Welcome to Zombie Land!": {
-   "en": "Welcome to Zombie Land!",
-   "hi": "ज़ॉम्बी लैंड में आपका स्वागत है!",
-   "mr": "झोंबी लँडमध्ये तुमचे स्वागत आहे!",
-   "te": "జాంబీ ల్యాండ్‌కు స్వాగతం!",
-   "or": "ଜୋମ୍ବି ଲ୍ୟାଣ୍ଡକୁ ସ୍ୱାଗତ!",
-   "gu": "ઝોમ્બી લેન્ડમાં તમારું સ્વાગત છે!"
-  },
-  "There are zombies everywhere!": {
-   "en": "There are zombies everywhere!",
-   "hi": "हर तरफ़ ज़ॉम्बी ही ज़ॉम्बी हैं!",
-   "mr": "सगळीकडे झोंबीच झोंबी आहेत!",
-   "te": "ఎక్కడ చూసినా జాంబీలే!",
-   "or": "ସବୁଆଡ଼େ ଜୋମ୍ବି ହିଁ ଜୋମ୍ବି!",
-   "gu": "બધે જ ઝોમ્બી જ ઝોમ્બી છે!"
-  },
-  "We need to cross these barriers and reach the safe zone.": {
-   "en": "We need to cross these barriers and reach the safe zone.",
-   "hi": "हमें ये रुकावटें पार करके सुरक्षित क्षेत्र तक पहुँचना है।",
-   "mr": "आपल्याला हे अडथळे पार करून सुरक्षित क्षेत्रापर्यंत पोहोचायचे आहे.",
-   "te": "మనం ఈ అడ్డంకులను దాటి సురక్షిత ప్రాంతానికి చేరుకోవాలి.",
-   "or": "ଆମକୁ ଏହି ବାଧାଗୁଡ଼ିକ ପାର କରି ସୁରକ୍ଷିତ ଅଞ୍ଚଳରେ ପହଞ୍ଚିବାକୁ ହେବ।",
-   "gu": "આપણે આ અવરોધો પાર કરીને સુરક્ષિત વિસ્તાર સુધી પહોંચવાનું છે."
-  },
-  "But first, we need to clear the way!": {
-   "en": "But first, we need to clear the way!",
-   "hi": "लेकिन पहले, हमें रास्ता साफ़ करना होगा!",
-   "mr": "पण आधी, आपल्याला रस्ता मोकळा करावा लागेल!",
-   "te": "కానీ ముందు, మనం దారిని సుగమం చేయాలి!",
-   "or": "କିନ୍ତୁ ପ୍ରଥମେ, ଆମକୁ ରାସ୍ତା ସଫା କରିବାକୁ ହେବ!",
-   "gu": "પણ પહેલાં, આપણે રસ્તો સાફ કરવો પડશે!"
-  },
-  "We need to aim carefully.": {
-   "en": "We need to aim carefully.",
-   "hi": "हमें ध्यान से निशाना लगाना होगा।",
-   "mr": "आपल्याला काळजीपूर्वक नेम धरावा लागेल.",
-   "te": "మనం జాగ్రత్తగా గురి పెట్టాలి.",
-   "or": "ଆମକୁ ସାବଧାନତାର ସହ ଲକ୍ଷ୍ୟ କରିବାକୁ ହେବ।",
-   "gu": "આપણે ધ્યાનથી નિશાન તાકવું પડશે."
-  },
-  "What angle will help us hit the target?": {
-   "en": "What angle will help us hit the target?",
-   "hi": "कौन-सा कोण हमें निशाने पर वार करने में मदद करेगा?",
-   "mr": "कोणता कोन आपल्याला लक्ष्यावर नेम साधायला मदत करेल?",
-   "te": "ఏ కోణం మనకు లక్ష్యాన్ని తాకడానికి సహాయపడుతుంది?",
-   "or": "କେଉଁ କୋଣ ଆମକୁ ଲକ୍ଷ୍ୟ ଭେଦ କରିବାରେ ସାହାଯ୍ୟ କରିବ?",
-   "gu": "કયો ખૂણો આપણને નિશાન પર વાર કરવામાં મદદ કરશે?"
-  },
-  "Trigonometric ratios connect the sides and angles.": {
-   "en": "Trigonometric ratios connect the sides and angles.",
-   "hi": "त्रिकोणमितीय अनुपात भुजाओं और कोणों को जोड़ते हैं।",
-   "mr": "त्रिकोणमितीय गुणोत्तरे बाजू आणि कोन यांना जोडतात.",
-   "te": "త్రికోణమితి నిష్పత్తులు భుజాలను, కోణాలను కలుపుతాయి.",
-   "or": "ତ୍ରିକୋଣମିତି ଅନୁପାତ ବାହୁ ଓ କୋଣକୁ ଯୋଡ଼େ।",
-   "gu": "ત્રિકોણમિતીય ગુણોત્તરો બાજુઓ અને ખૂણાઓને જોડે છે."
-  },
-  "Let's explore all six ratios to help us aim!": {
-   "en": "Let's explore all six ratios to help us aim!",
-   "hi": "चलिए, निशाना लगाने के लिए सभी छह अनुपातों को समझते हैं!",
-   "mr": "चला, नेम धरण्यासाठी सहाही गुणोत्तरे समजून घेऊया!",
-   "te": "గురి పెట్టడానికి ఆరు నిష్పత్తులనూ తెలుసుకుందాం!",
-   "or": "ଚାଲନ୍ତୁ, ଲକ୍ଷ୍ୟ କରିବା ପାଇଁ ସବୁ ଛଅଟି ଅନୁପାତ ଜାଣିବା!",
-   "gu": "ચાલો, નિશાન તાકવા માટે છએ છ ગુણોત્તરો શીખીએ!"
-  },
   "The path is clear. Let's head in!": {
    "en": "The path is clear. Let's head in!",
    "hi": "रास्ता साफ़ है। चलिए, अंदर चलते हैं!",
@@ -1375,14 +1269,7 @@ html:not([lang="en"]) .sheetBtn{text-transform:none;letter-spacing:0}
     </div>
   </div>
 
-  <!-- the hand-off to the lesson: NEXT ▶, as the storyboard has it -->
-  <button type="button" class="bigBtn" id="cmdNext">
-    <span data-i18n="NEXT">NEXT</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z"/></svg>
-  </button>
-
-  <!-- the story's and the ending's narration, across the top the way the
-       storyboard sets it -->
+  <!-- the ending's narration, across the top the way the storyboard sets it -->
   <div id="caption" class="hidden" aria-live="polite"><span id="captionText"></span></div>
 
   <!-- the trig table: built in code so it can point at things (see TRIG_TABLE) -->
@@ -1819,8 +1706,6 @@ const IMGS = {}, MANIFEST = {
   safeZone:'assets/safeZone.webp',   // the ending's compound, gate opening keyed out
   safeGate:'assets/safeGate.webp',   // …and its gate, both leaves, fitted to the opening
   shot:'assets/TankShot.webp',
-  commander:'assets/commander.webp', // her head and shoulders, for the hatch scene
-  commanderFace:'assets/commander_face.webp', // …her shut eyes, laid over it to blink
   pre:'assets/nbTitle.webp',         // the painted title plate — landscape only
   word:'assets/nbWord.webp',         // …and the wordmark over it, halo and all
   /* Five complete 16:9 plates of ONE moonlit swamp, cropped so all five put
@@ -1858,9 +1743,8 @@ function loadAll(cb){
 }
 /* A picture is decoded the first time it is drawn, and a baked canvas is
    only painted the first time something draws from it — and most of those
-   first times used to land inside the story: the whole swamp strip and the
-   tank on its opening title, each zombie sheet as the horde rose, the
-   barriers and the compound on the glide. Drawing everything once at load,
+   first times would land in the middle of play: the swamp strip, each
+   zombie sheet, the barriers and the compound. Drawing everything once at load,
    full size but clipped to a single pixel, gets all of it done while the
    loading bar is still up. */
 function warmArt(list){
@@ -2217,44 +2101,13 @@ const AU = {
   /* gun laid, target set */
   lockOn(){ if(!this.ctx)return; const t=this.now();
     this.tone(880,t,.07,'square',.09); this.tone(1320,t+.07,.1,'square',.09); },
-  /* ---- the commander's hatch: every beat of it has its own sound ---- */
-  /* two catches letting go, high then lower */
-  latch(){ if(!this.ctx)return; const t=this.now();
-    [0,.09].forEach((d,i)=>{ this.noise(t+d,.035,.32,2600,6400);
-      this.tone(i?1500:1900,t+d,.045,'square',.06); }); },
-  /* the lid rapping against them from underneath */
-  knock(){ if(!this.ctx)return; const t=this.now();
-    this.noise(t,.05,.26,700,2400);
-    this.tone(210+Math.random()*50,t,.07,'square',.09,null,150); },
-  /* the pressure going: a sharp burst, then the long tail of it */
-  hiss(dur){ if(!this.ctx)return; const t=this.now();
-    this.noise(t,.18,.34,2800,9000); this.noise(t+.05,dur,.2,3200,8000); },
-  /* a dry hinge: a sawtooth climbing, shaken by a fast wobble */
-  creak(dur){ if(!this.ctx)return; const t=this.now();
-    const o=this.ctx.createOscillator(), l=this.ctx.createOscillator();
-    const lg=this.ctx.createGain(), g=this.ctx.createGain();
-    o.type='sawtooth';
-    o.frequency.setValueAtTime(330,t); o.frequency.linearRampToValueAtTime(520,t+dur);
-    l.frequency.value=34; lg.gain.value=60; l.connect(lg); lg.connect(o.frequency);
-    g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.05,t+.03);
-    g.gain.exponentialRampToValueAtTime(.0001,t+dur);
-    o.connect(g); g.connect(this.sfxGain);
-    o.start(t); l.start(t); o.stop(t+dur+.05); l.stop(t+dur+.05); },
   /* steel on its stop: a struck plate's inharmonic partials over a thud —
-     pitched down for the slam shut, so the two ends of the scene rhyme */
+     pitched down for a gate slamming shut */
   clang(shut){ if(!this.ctx)return; const t=this.now(), f=shut ? .78 : 1;
     [[523,.14,.55],[1431,.09,.42],[2207,.06,.3],[3130,.04,.22]]
       .forEach(([hz,v,d])=>this.tone(hz*f,t,d,'sine',v));
     this.tone(shut?80:105,t,.22,'sine',.4,null,55);
     this.noise(t,.06,.34,500,5000); },
-  /* her, out of it like a cork */
-  popOut(){ if(!this.ctx)return; const t=this.now();
-    this.tone(240,t,.13,'sine',.32,null,1250);
-    this.tone(480,t+.01,.09,'triangle',.1,null,2100);
-    this.noise(t,.05,.14,1200,4800); },
-  /* …and back down she goes */
-  duckIn(){ if(!this.ctx)return; const t=this.now();
-    this.tone(950,t,.15,'sine',.22,null,240); },
   fire(){
     if(!this.ctx)return; const t=this.now();
     this.noise(t,.28,.5,80,1500);
@@ -2363,9 +2216,7 @@ const AU = {
    ============================================================ */
 const GameState = {
   PREGAME:'PREGAME',
-  STORY:'STORY',        // the opening story, between START and the first round
   INTRO:'INTRO',        // tank rolls into firing position, camera in tow
-  COMMANDER:'COMMANDER',// the hatch opens and she asks for the lesson — once
   BRIEFING:'BRIEF',     // the triangle draws itself in, one side at a time
   AIMING:'AIM',
   LAYING:'LAYING',      // barrel swings to the angle the player committed to
@@ -2384,7 +2235,7 @@ const G = {
   angleShown:BARREL_REST_ANGLE,         // where the barrel actually points
   barrelTarget:BARREL_REST_ANGLE,
   chipAlpha:1,                          // the measured lengths, gone once FIRE lands
-  lay:null, brief:null, outro:null, cmd:null,  // active choreography, if any
+  lay:null, brief:null, outro:null,  // active choreography, if any
   reveal:{adj:0,opp:0,hyp:0,theta:0,chipA:0,chipO:0},
   aimPath:null, shell:null, particles:[],
   shake:0, recoil:0, flash:0, guideAlpha:1,
@@ -2484,33 +2335,16 @@ TANK.wheelR  = TANK.h*.195;
 const TANK_NOSE = .85;
 TANK.nose = ()=> TANK.x + TANK.w*TANK_NOSE - G.recoil*.6;
 
-/* ---------- the commander's hatch ----------
+/* ---------- the tank's hatch ----------
    The turret ring painted on the hull already has an open hole in it. The
-   hatch is a lid laid over that hole — drawn here rather than painted,
-   because it has to swing — and the commander climbs out through the same
-   hole. HATCH is in hull-sheet px (inside SP.hull), measured off the art:
-   the hole's dark interior, outline included, at its widest row. */
+   hatch is a lid laid over that hole, drawn here rather than painted. HATCH
+   is in hull-sheet px (inside SP.hull), measured off the art: the hole's
+   dark interior, outline included, at its widest row. */
 const HATCH = {cx:410, cy:33, rx:84, ry:7,
                lidR:90, lidRy:8};               // the lid overlaps the rim a little
-const LID_OPEN = 100*Math.PI/180;               // just past upright: a shield at her back
-/* tools/fit_assets.py commander: her helmet width, the row the rim cuts her
-   off at, and the column that centres her in the hole */
-const CMDR = {w:381, h:427, headW:300, top:3, cut:306, cx:194};
-/* tools/fit_assets.py face: her expressions, as overlays on commander.webp —
-   [sx, sy, w, h] on the sheet, then [x, y] where each sits on the bust */
-const CMDR_FACE = {blink:[0,0,142,77,160,157]};
-const CMDR_HEAD = 40;                           // helmet width on screen; the hole is 48
-const CMDR_SC = CMDR_HEAD/CMDR.headW;
 function hatchAt(){
   const k = TANK.w/SP.hull[2], hx = TANK.x - G.recoil*.6;
   return {x:hx+HATCH.cx*k, y:TANK.y+HATCH.cy*k, rx:HATCH.rx*k, ry:HATCH.ry*k, k, hx};
-}
-/* where she is for a given climb: 0 is out of sight under the rim, 1 is
-   shoulders-out. `head` is the middle of what shows — the camera aims there. */
-function commanderAt(rise=1){
-  const h = hatchAt(), tall = (CMDR.cut-CMDR.top)*CMDR_SC;
-  const cutY = h.y + h.ry*.5 + (1-rise)*(tall + h.ry + 2);
-  return {h, cutY, head:{x:h.x, y:cutY - tall*.5}};
 }
 
 /* The gun's rotation centre for a tank parked at this screen x. This is the
@@ -2838,427 +2672,23 @@ function enterAiming({instant=false}={}){
 }
 
 
-/* ============================================================
-   THE COMMANDER — her hatch scene
-   Beat 5 of the story opens it, without a word: the hatch opens, she
-   climbs out, and the camera closes in on her. The story keeps her up for
-   beats 6-9 and eases the camera back off her (zoomBack); NEXT on beat 9
-   hands over to the lesson (openLesson), and when the student comes back
-   she ducks inside, the hatch shuts, and round one's briefing begins. One
-   clock on the game loop, settled at once under reduced motion.
-   ============================================================ */
-/* The score, in seconds. Two movements — the hatch, then the pop — and
-   every beat lands on its own sound, so the ear follows it as well as the
-   eye does:
-     push   the camera leans in on the turret before anything moves
-     latch  two catches let go, and the lid raps against them three times
-     crack  it lifts a finger's width and the pressure goes: hiss, steam
-     throw  it is flung open, creaking, and CLANGS against its stop
-     pop    a beat of empty hatch, then she springs out — and the camera
-            punches in with her */
-const CMD_IN = {
-  push:[0,.6], latch:.3, knocks:[.4,.52,.64], crack:[.78,1.02], throw:[1.02,1.18],
-  pop:1.6, punch:[1.6,1.95]
-};
-const CMD_OUT = {duck:[0,.16], slam:[.2,.34], zoom:[.32,.95], end:1.0};
-const CMD_ZOOM = 3.4;
-const CMD_PUSH = .42;                // the share of the close-up the opening lean-in takes (2x)
-const CMD_FRAME = {x:.3, y:.44};     // where her face settles, as a share of the screen
-const CMD_SETTLE = .3;               // her spring has come to rest this long after the pop
-const CMD_HOLD = 1.1;                // …and the close-up holds on her this long after that
-const LID_CRACK = .2;                // radians the pressure lifts it before it is thrown
-const span = (t,[a,b]) => clamp01((t-a)/(b-a));
-
-function beginCommander(){
-  G.lay = null; G.barrelTarget = BARREL_REST_ANGLE;
-  clearReveal(); stowDock(true);
-  G.cmd = {t:0, out:null, ready:false, steamT:0, zoomBack:null, zoomFrom:0};
-  setGameState(GameState.COMMANDER);
-  if(!ambientMotionAllowed()) G.cmd.t = CMD_IN.punch[1] + .4;   // already up
-}
-function updateCommander(dt){
-  const c = G.cmd; if(!c) return;
-  const h = hatchAt();
-  if(c.out!==null){
-    const was = c.out; c.out += dt;
-    if(was<CMD_OUT.slam[1] && c.out>=CMD_OUT.slam[1]){
-      AU.clang(true); G.shake = 4; hatchSteam(h, 5, true);
-    }
-    if(c.out>=CMD_OUT.end) finishCommander();
-    return;
-  }
-  const was = c.t;
-  c.t += dt;
-  /* A beat fires when the clock steps over it. A jump of the clock — her
-     already-up start under reduced motion, a preview — drops every beat it
-     jumps, so the whole score never goes off in one chord. */
-  const t = c.t, I = CMD_IN, at = x => t-was < .2 && was < x && t >= x;
-  if(at(I.latch)) AU.latch();
-  I.knocks.forEach(k=>{ if(at(k)) AU.knock(); });
-  if(at(I.crack[0])) AU.hiss(.9);
-  if(at(I.throw[0])) AU.creak(I.throw[1]-I.throw[0]+.06);
-  if(at(I.throw[1])){ AU.clang(false); G.shake = 6; hatchSteam(h, 12, true); }
-  if(at(I.pop)){ AU.popOut(); AU.whoosh(.32); }
-  // while the lid is only cracked, steam leaks round its rim
-  if(t>I.crack[0] && t<I.throw[1] && (c.steamT -= dt) <= 0){ hatchSteam(h, 2, false); c.steamT = .03; }
-}
-/* The lid on the clock: still, then knocking at the latch, then cracked by
-   the pressure, then thrown — accelerating — onto its stop, where it
-   rebounds twice and rests. */
-function lidSwingIn(t){
-  const I = CMD_IN;
-  if(t<I.crack[0]){
-    for(const k of I.knocks) if(t>=k && t<k+.07) return .12*Math.sin(Math.PI*(t-k)/.07);
-    return 0;
-  }
-  if(t<I.throw[0]) return LID_CRACK*easeOutCubic(span(t, I.crack));
-  if(t<I.throw[1]){ const u = span(t, I.throw); return LID_CRACK + (LID_OPEN-LID_CRACK)*u*u; }
-  const s = t - I.throw[1];
-  return LID_OPEN - .26*Math.exp(-8*s)*Math.abs(Math.sin(16*s));
-}
-/* Her climb after the pop is a spring: past the rim, back, and settled in a
-   third of a second — then STILL, nothing breathing or drifting. Its speed
-   is what squashes and stretches her (drawCommander). */
-function popSpring(s){
-  if(s<=0) return {y:0, v:0};
-  const e = Math.exp(-12*s), c = Math.cos(22*s), n = Math.sin(22*s);
-  return {y:1 - e*c, v:e*(12*c + 22*n)};
-}
-/* lid swing (radians), climb (0–1, overshooting), her speed, and zoom (0–1) */
-function commanderPose(){
-  const c = G.cmd;
-  if(!c) return {lid:0, rise:0, v:0, zoom:0};
-  if(c.out!==null){
-    const o = c.out, D = CMD_OUT.duck, d = span(o, D), sl = span(o, CMD_OUT.slam);
-    return {lid:LID_OPEN*(1-sl*sl), rise:1-d*d, v:d>0 && d<1 ? -2*d/(D[1]-D[0]) : 0,
-            zoom:c.zoomFrom*(1-easeInOutCubic(span(o, CMD_OUT.zoom)))};
-  }
-  const t = c.t, sp = popSpring(t - CMD_IN.pop);
-  let zoom = CMD_PUSH*easeInOutCubic(span(t, CMD_IN.push))
-           + (1-CMD_PUSH)*easeOutCubic(span(t, CMD_IN.punch));
-  // the story eases the camera back off her to show the tank and its target
-  if(c.zoomBack!=null) zoom *= 1 - easeInOutCubic(clamp01((t - c.zoomBack)/.9));
-  return {lid:lidSwingIn(t), rise:sp.y, v:sp.v, zoom};
-}
-/* steam out of the hatch: a thin leak at the rim's two ends while the lid is
-   cracked, one big breath of it when the lid is flung open */
-function hatchSteam(h, n, burst){
-  for(let i=0;i<n;i++){
-    const side = Math.random()<.5 ? -1 : 1;
-    G.particles.push(burst ? {
-      x:h.x + (Math.random()-.5)*h.rx*1.4, y:h.y - 2,
-      vx:(Math.random()-.5)*240, vy:-50-Math.random()*60,
-      r:3+Math.random()*4, t:0, life:.45+Math.random()*.3, kind:'steam'
-    } : {
-      x:h.x + side*h.rx*(.6+Math.random()*.4), y:h.y - 1,
-      vx:side*(30+Math.random()*40), vy:-22-Math.random()*30,
-      r:3+Math.random()*3, t:0, life:.5+Math.random()*.35, kind:'steam'
-    });
-  }
-}
-/* The close-up: the camera scales about her face while sliding it to
-   CMD_FRAME, and the view is held inside the painted screen so a zoom can
-   never show past the edge of the world. At e=0 this is the identity. */
-function commanderView(e){
-  const z = 1 + (CMD_ZOOM-1)*e, f = commanderAt(1).head;
-  let x = f.x - (lerp(f.x, W*CMD_FRAME.x, e) - W/2)/z;
-  let y = f.y - (lerp(f.y, H*CMD_FRAME.y, e) - H/2)/z;
-  const hw = W/(2*z), hh = H/(2*z);
-  x = Math.max(hw, Math.min(W-hw, x));
-  y = Math.max(hh, Math.min(H-hh, y));
-  return {x, y, z};
-}
-function pressCommanderNext(){
-  const c = G.cmd;
-  if(G.state!==GameState.COMMANDER || !c || !c.ready) return;
-  AU.click();
-  c.ready = false; $('cmdNext').disabled = true;
-  $('cmdNext').classList.remove('is-in');
-  endStory();
-  openLesson(leaveCommander);
-}
-/* THE LESSON — the learning section, an app of its own in lesson/ (see
-   lesson/js/host.js). NEXT hands over to it and its end hands back, when
-   the hatch scene picks up again: she ducks inside and round one's
-   briefing begins. The story has already shown the tank, her climbing out
-   and the triangle's sides, so the lesson opens straight onto its board.
-   It lives in a frame over the whole window — it is laid out for a window
-   of its own, not for the stage — loaded unseen as the story starts, so
-   it is ready by the time it is asked for, and while it is up the game
-   stands still and silent behind it. A lesson that never says it is there
-   (not deployed with the game, or broken) is passed over after
-   LESSON_WAIT rather than allowed to hold the game up. */
-/* This is the GAME-ONLY build: there is no lesson in it, so NEXT goes straight
-   on to round one. (The complete build, with the lesson, sets lesson/index.html.) */
-const LESSON_SRC = null;
-const LESSON_WAIT = 8000;          // ms
-const LESSON_FADE = .45;           // s: #lesson's own transition
-let lessonUp = false;              // the game stands still behind it (loop)
-const Lesson = {
-  frame:null, alive:false, back:null, wait:0,
-  load(){
-    if(this.frame || !LESSON_SRC) return;
-    const f = this.frame = document.createElement('iframe');
-    f.id = 'lesson';
-    f.src = `${LESSON_SRC}?lan=${I18N.lang==='or' ? 'od' : I18N.lang}`;   // the lesson names Odia "od"
-    f.allow = 'autoplay';
-    f.tabIndex = -1; f.setAttribute('aria-hidden', 'true');
-    this.alive = false;
-    document.body.appendChild(f);
-  },
-  open(back){
-    if(!LESSON_SRC){ back(); return; }
-    this.back = back;
-    this.load();
-    /* inside the NEXT press itself: a browser that lets sound start only
-       from a tap (iOS) lets the lesson's start too, though the tap landed
-       here and not in the lesson */
-    try{ this.frame.contentWindow.LessonHost.unlock(); }catch(_){}
-    if(this.alive) this.show();
-    else this.wait = setTimeout(()=>this.passOver(), LESSON_WAIT);
-  },
-  heard(type){
-    if(type==='lesson:alive'){
-      this.alive = true;
-      try{ this.frame.title = this.frame.contentDocument.title; }catch(_){}
-      if(this.back && this.wait){ clearTimeout(this.wait); this.wait = 0; this.show(); }
-    }
-    else if(type==='lesson:done' && lessonUp) this.close();
-  },
-  show(){
-    const f = this.frame;
-    lessonUp = true;
-    stopVO(); hideMsg();
-    AU.musicTo(0, LESSON_FADE);
-    setTimeout(()=>{ if(lessonUp) AU.stopMusic(); }, LESSON_FADE*1000);
-    $('stage').inert = true;
-    f.removeAttribute('aria-hidden'); f.tabIndex = 0;
-    f.classList.add('is-open');
-    GameBus.screen('lesson', 'intro');
-    f.contentWindow.postMessage({type:'lesson:start'}, '*');
-    f.focus();
-  },
-  close(){
-    const f = this.frame, back = this.back;
-    this.back = null; lessonUp = false;
-    $('stage').inert = false;
-    f.classList.remove('is-open'); f.blur();
-    if(AU.ctx){ AU.startMusic(); AU.musicTo(MUSIC_LEVEL, .8); }
-    // she is still up in her hatch behind it: once it has gone, she ducks in
-    setTimeout(()=>{ this.drop(); if(back) back(); }, ambientMotionAllowed() ? LESSON_FADE*1000 : 0);
-  },
-  passOver(){
-    this.wait = 0;
-    const back = this.back; this.back = null;
-    this.drop();
-    if(back) back();
-  },
-  drop(){ if(this.frame){ this.frame.remove(); this.frame = null; this.alive = false; } }
-};
-addEventListener('message', e=>{
-  if(Lesson.frame && e.source===Lesson.frame.contentWindow && e.data) Lesson.heard(e.data.type);
-});
-function openLesson(back){ Lesson.open(back); }
-function leaveCommander(){
-  const c = G.cmd; if(!c) return;
-  c.zoomFrom = commanderPose().zoom;     // wherever the camera is, it comes home from there
-  c.out = 0;
-  if(!ambientMotionAllowed()){ finishCommander(); return; }
-  AU.duckIn();
-}
-function finishCommander(){
-  G.cmd = null;
-  if(G.zombie && G.zombie.mode==='alert') G.zombie.mode = 'idle';
-  beginBriefing();
-}
-
-/* ============================================================
-   THE STORY — the opening, between START and the first round
-   (STORY_INTRO.md). The LXD's nine beats, told IN the game rather than in
-   front of it — the same world, camera and characters the player is about
-   to play with. Every line is verbatim, and beat 5 has none:
-     1-3  a fly-over of the real level: the tank parked at the start, the
-          five zombie outposts and the stragglers between them, the safe
-          zone at the far end, and the mission's shape drawn as it goes
-     4    a whip back to the tank, which rolls up to the first outpost
-     5    the hatch scene, without a word: the lid is flung open, she
-          springs out, and the camera punches in on her and holds
-     6-9  on the real triangle: the barrel searches, the triangle draws
-          itself, its sides take their names — then NEXT
-   One director: a beat holds for its voice-over (or long enough to read
-   it) and for whatever it is doing on screen, whichever is longer. Nothing
-   skips a beat or cuts one short — every learner walks through all nine —
-   and the hand-off is only ever taken with NEXT.
-   ============================================================ */
-const STORY_BEATS = [
-  {key:'Welcome to Zombie Land!',                                  fly:'open',  min:3.8},
-  {key:'There are zombies everywhere!',                            fly:'horde', min:4.8},
-  {key:'We need to cross these barriers and reach the safe zone.', fly:'goal',  min:5.6},
-  {key:'But first, we need to clear the way!',                     act:'drive'},
-  {key:null,                                                       act:'hatch'},
-  {key:'We need to aim carefully.',                                act:'aim',      min:2.8},
-  {key:'What angle will help us hit the target?',                  act:'triangle', min:3.0},
-  {key:'Trigonometric ratios connect the sides and angles.',       act:'sides',    min:3.0},
-  {key:"Let's explore all six ratios to help us aim!",             act:'handoff'}
-];
-/* beat 9: NEXT rises a breath after her line has been said — never over
-   it, where a tap would cut her off — and, for a line with no voice, this
-   long after it appears */
-const STORY_NEXT_AT = 1.4, STORY_NEXT_BREATH = .35;
-/* the storyboard's colours for the three sides: the glow's core and bloom,
-   and the tag their names sit on */
-const SIDE_HUE = {hyp:{core:'#ffdcd4', bloom:'#ff4b3a', tag:'#c63a2a'},
-                  opp:{core:'#fff6c6', bloom:'#ffcf1f', tag:'#a97d04'},
-                  adj:{core:'#a9dcff', bloom:'#1689ff', tag:'#1b74bd'}};
-
-/* THE FLY-OVER. The tank waits at the very start of the world; the camera
-   opens pushed in on the sky above it and pulls back (beat 1), then glides
-   right over the first three outposts (2) and on past the last two to the
-   safe zone (3) — eased, so it settles on each end. */
-const STORY_PARK = 70;          // the tank's world x before it rolls up to the first outpost
-const STORY_OPEN = {z:1.32, y:236, pull:[.2, 2.8]};   // the crane-back reveal
-const STORY_FLY = {horde:[.15, 4.55], goal:[.1, 4.9], whip:.95};
-/* zombies standing in the swamp between the outposts, already there when
-   the camera passes — the game's own three, on the outposts' ground line or
-   a little further back: [after outpost, gap from its right edge, type,
-   scale, far] */
-const STORY_HORDE = [
-  [0,320,'runner',.66,0], [0,520,'shambler',.56,1], [1,300,'bruiser',.62,0],
-  [1,560,'runner',.54,1], [2,340,'shambler',.66,0], [3,330,'bruiser',.6,0],
-  [3,600,'runner',.52,1], [4,360,'shambler',.64,0]
-];
-
-function beginStory(){
-  G.story = {beat:-1, t:0, clock:0, fly:true, view:null, whip:null,
-             strip:0, stripAt:0, arrived:false, arrivedT:0,
-             guides:false, hl:{adj:0, opp:0, hyp:0}, vo:0, horde:[]};
-  // the tank waits at the start of the world
-  G.tankWorldX = STORY_PARK; G.cameraX = 0; G.tankVel = 0; G.drive = null;
-  G.story.horde = STORY_HORDE.map(([k, gap, type, scale, far])=>{
-    const n = G.levelNodes[k];
-    return {type, scale, far, wx:n.worldX + n.tower.w + gap, frame:0, animT:0, sway:0, mode:'idle'};
-  });
-  syncWorldPositions();
-  document.body.classList.add('in-story');
-  setGameState(GameState.STORY);
-  GameBus.screen('story', 'intro');
-  preloadVO();                     // her lines, so the first word of each is on time
-  Lesson.load();                   // the lesson, ready by the time NEXT asks for it
-  enterBeat(0);
-}
-function endStory(){
-  stopVO();
-  G.story = null;
-  document.body.classList.remove('in-story');
-  $('caption').classList.remove('is-title');
-  hideCaption();
-}
-function enterBeat(i){
-  const s = G.story, b = STORY_BEATS[i];
-  s.beat = i; s.t = 0; s.vo = 0; s.lineAt = null; s.quietAt = null;
-  if(b.act==='hatch') hideCaption();       // she climbs out without a word
-  else sayLine();
-  if(b.fly==='horde') s.flyFrom = G.cameraX;
-  else if(b.fly==='goal'){ s.flyFrom = G.cameraX; s.stripAt = s.clock; }
-  else if(b.act==='drive'){ s.whip = {t:0, from:G.cameraX}; AU.whoosh(.6); }
-  else if(b.act==='hatch') beginCommander();
-  else if(b.act==='aim'){                         // off her close-up, back to 1:1
-    if(G.cmd) G.cmd.zoomBack = ambientMotionAllowed() ? G.cmd.t : G.cmd.t - 5;
-  }
-  else if(b.act==='triangle') s.guides = true;
-}
-/* the beat's line: its caption, its voice, and the moment it began */
-function sayLine(){
-  const s = G.story, i = s.beat;
-  s.lineAt = s.t;
-  s.voId = 'story_' + String(i+1).padStart(2,'0');
-  playVO(s.voId);
-  showCaption(t(STORY_BEATS[i].key), i>0);
-  $('caption').classList.toggle('is-title', i===0);          // the opening line is the title
-}
-/* the fly-over's two legs end on these */
-const flyHordeEnd =()=>{ const n = G.levelNodes[2]; return n.worldX + n.tower.w/2 - W*.56; };
-/* a beat's end state, at once — what it leaves behind for the next one (and
-   what a #previewstory starts from) */
-function settleBeat(i){
-  const s = G.story, b = STORY_BEATS[i];
-  if(b.fly==='open') s.view = null;
-  if(b.fly==='horde' || b.fly==='goal'){
-    G.cameraX = b.fly==='horde' ? flyHordeEnd() : safeZoneCamera();
-    syncWorldPositions();
-    if(b.fly==='goal') s.strip = 1;
-  }
-  if(b.act==='drive'){
-    /* wherever the story is — mid-fly-over, mid-whip, mid-roll — the tank
-       ends up at the first outpost with the camera on it */
-    s.whip = null; s.fly = false; s.strip = 0;
-    if(!s.arrived){
-      if(!G.drive){ G.cameraX = 0; storyDrive(); }           // the roll hadn't begun…
-      if(G.drive){ poseDriveAt(1); finishDrive(); }           // …land it; storyArrived fires
-    }
-  }
-  if(b.act==='hatch'){
-    if(!G.cmd) beginCommander();
-    G.cmd.t = Math.max(G.cmd.t, CMD_IN.punch[1] + .4);
-  }
-  if(b.act==='aim'){
-    if(G.cmd) G.cmd.zoomBack = G.cmd.t - 5;
-    G.barrelTarget = G.angleShown = BARREL_REST_ANGLE;
-  }
-  if(b.act==='triangle'){ s.guides = true; ['adj','opp','hyp','theta'].forEach(k=>G.reveal[k] = 1); }
-  if(b.act==='sides') ['adj','opp','hyp'].forEach(k=>s.hl[k] = 1);
-}
-function nextBeat(){ settleBeat(G.story.beat); enterBeat(G.story.beat + 1); }
-function readTime(b){
-  const s = G.story;
-  return s.vo ? s.vo + .7 : Math.max(3.2, .065*t(b.key).length);
-}
-function beatDone(){
-  const s = G.story, b = STORY_BEATS[s.beat];
-  if(b.act==='hatch')                                 // she is out and still, and has been seen
-    return !!G.cmd && G.cmd.t >= CMD_IN.pop + CMD_SETTLE + CMD_HOLD && s.t >= CMD_HOLD;
-  if(s.t < (b.min || 0) || s.quietAt==null || s.t - s.lineAt < readTime(b)) return false;
-  if(b.act==='drive') return s.arrived && s.arrivedT >= 1.1;
-  return true;
-}
-/* after the whip: the tank rolls up from the start to the first outpost */
-function storyDrive(){
-  setGameState(GameState.INTRO);
-  GameBus.screen('intro', 'intro');
-  G.drive = {t:0, nextLevel:null, tankStart:G.tankWorldX, tankEnd:levelRestTankX(0),
-             cameraStart:G.cameraX, cameraEnd:levelRestCamera(0), onArrive:storyArrived};
-  if(!ambientMotionAllowed()){ poseDriveAt(1); finishDrive(); }
-}
-/* the tank has rolled up to the first outpost, and its zombie has seen it */
-function storyArrived(){
-  const s = G.story; if(!s) return;
-  s.arrived = true; s.arrivedT = 0;
-  setGameState(GameState.STORY);
-  if(G.zombie){ G.zombie.mode = 'alert'; G.zombie.animT = 0; }
-  AU.zombieUhOh();
-}
-
 /* ---- the voice: every line the learner reads, said by the commander ----
-   The story's and the ending's captions, the shell messages, the out-of-
-   shells card and the hint (VO_LINES.csv; tools/vo_lines.py writes the
-   script, cuts a recording into its lines and checks the files). Whatever
-   is in assets/vo/<lang>/ plays, fetched as the story starts so that no
-   first word is late. A line without its file is silent, and is not asked
-   for again; the story then holds that line for its reading time instead.
-   One line at a time: a new one cuts the last. The music dips while she
-   speaks and comes back up once she has finished. */
-const VO_IDS = STORY_BEATS.map((b, i)=> b.key ? 'story_' + String(i+1).padStart(2, '0') : null)
-  .filter(Boolean).concat(['shells_rule', 'miss_2_left', 'miss_last', 'shells_left_2', 'shells_left_1',
-    'out_of_shells', 'shells_reloaded', 'hint_sin', 'hint_tan', 'hint_cos', 'end_01', 'end_02']);
+   The ending's captions, the shell messages, the out-of-shells card and the
+   hint. Whatever is in assets/vo/<lang>/ plays, fetched as the game starts
+   so that no first word is late. A line without its file is silent, and is
+   not asked for again. One line at a time: a new one cuts the last. The
+   music dips while she speaks and comes back up once she has finished. */
+const VO_IDS = ['shells_rule', 'miss_2_left', 'miss_last', 'shells_left_2', 'shells_left_1',
+  'out_of_shells', 'shells_reloaded', 'hint_sin', 'hint_tan', 'hint_cos', 'end_01', 'end_02'];
 let voEl = null, voId = null, voWait = 0;
-const voClips = {}, voMissing = new Set(), voHeard = new Set();
+const voClips = {}, voMissing = new Set();
 function voClip(id){
   let a = voClips[id];
   if(!a && !voMissing.has(id)){
     a = voClips[id] = new Audio(`assets/vo/${I18N.lang}/${id}.ogg`);
     a.preload = 'auto';
     a.addEventListener('error', ()=>{ voMissing.add(id); delete voClips[id]; if(voEl===a) voDone(); });
-    a.addEventListener('playing', ()=>{ voHeard.add(id); if(voEl===a) AU.musicTo(MUSIC_UNDER_VOICE); });
+    a.addEventListener('playing', ()=>{ if(voEl===a) AU.musicTo(MUSIC_UNDER_VOICE); });
     a.addEventListener('ended', ()=>{ if(voEl===a) voDone(); });
   }
   return a;
@@ -3282,8 +2712,6 @@ function sayVO(id){
   a.play().catch(()=>{ if(voEl===a) voDone(); });     // refused (no tap yet, or muted by the system)
 }
 function voDone(){ voEl = null; voId = null; AU.musicTo(MUSIC_LEVEL, .6); }
-/* whether she is saying — or about to say — a line */
-function voiceBusy(){ return voId !== null; }
 /* stop the voice — or, given a prefix, only if it is saying a line of that kind */
 function stopVO(kind){
   if(!voId || (kind && !voId.startsWith(kind))) return;
@@ -3292,179 +2720,8 @@ function stopVO(kind){
   voDone();
 }
 
-function updateStory(dt){
-  const s = G.story; if(!s) return;
-  const was = s.t; s.t += dt; s.clock += dt;
-  /* a cue fires when the clock steps over it; a jump of the clock (a
-     preview starting mid-beat) drops every cue it jumps, as in the hatch
-     scene */
-  const t = s.t, b = STORY_BEATS[s.beat], at = x => t-was < .2 && was < x && t >= x;
-  const moving = ambientMotionAllowed();
-
-  // 1: the crane back from the sky to the whole of the start of the world
-  if(b.fly==='open'){
-    const e = moving ? easeInOutCubic(span(t, STORY_OPEN.pull)) : 1;
-    s.view = e < 1 ? {z:lerp(STORY_OPEN.z, 1, e), y:lerp(STORY_OPEN.y, H/2, e)} : null;
-  }
-  // 2-3: the glide over the outposts, then on to the safe zone
-  if(b.fly==='horde' || b.fly==='goal'){
-    const to = b.fly==='horde' ? flyHordeEnd() : safeZoneCamera();
-    const e = moving ? easeInOutCubic(span(t, STORY_FLY[b.fly])) : 1;
-    G.cameraX = lerp(s.flyFrom, to, e);
-    syncWorldPositions();
-  }
-  /* the zombies are already out there, so the camera finds them in silence:
-     the moan each one used to give belonged to its climb up out of the road */
-  s.horde.forEach((h,k)=>{
-    h.sway = moving ? Math.sin(G.time*2 + k*1.9)*.045 : 0;
-    const look = ZOMBIE_TYPES[h.type].look;
-    if(look.fps>0 && (h.animT += dt) > 1/look.fps){ h.animT = 0; h.frame++; }
-  });
-  // the mission strip: in on beat 3, out once the tank starts to roll
-  s.strip = b.fly==='goal' || (b.act==='drive' && s.whip)
-          ? Math.min(1, s.strip + dt/.4) : Math.max(0, s.strip - dt/.5);
-  if(b.fly==='goal') [0,1,2,3,4,5,6].forEach(k=>{ if(at(.25 + k*.12)) AU.blip(700 + k*95); });
-
-  // 4: the whip back to the tank, through a dip, then the roll up (without
-  //    motion, a plain dip to black that cuts at its darkest)
-  if(s.whip){
-    s.whip.t += dt;
-    const u = clamp01(s.whip.t/STORY_FLY.whip);
-    G.cameraX = lerp(s.whip.from, 0, moving ? easeInOutCubic(u) : +(u >= .5));
-    syncWorldPositions();
-    if(u>=1){ s.whip = null; s.fly = false; storyDrive(); }
-  }
-  if(s.arrived) s.arrivedT += dt;
-
-  // 6: the barrel searches — up past the zombie and back — and never stops on the answer
-  if(b.act==='aim' && moving)
-    [[.45,72],[1.35,14],[2.15,BARREL_REST_ANGLE]].forEach(([x,a])=>{ if(at(x)){ G.barrelTarget = a; AU.servo(.55); } });
-  if(b.act==='triangle')
-    [['adj',.2,.8,588],['opp',.9,1.45,699],['hyp',1.55,2.25,831],['theta',2.3,2.9,988]].forEach(([k,a,e,n])=>{
-      G.reveal[k] = Math.max(G.reveal[k], easeOutCubic(span(t,[a,e])));
-      if(at(a)) AU.blip(n);
-    });
-  if(b.act==='sides')
-    [['hyp',.2,.6,831],['opp',1,1.4,699],['adj',1.8,2.2,588]].forEach(([k,a,e,n])=>{
-      s.hl[k] = Math.max(s.hl[k], easeOutCubic(span(t,[a,e])));
-      if(at(a)) AU.blip(n);
-    });
-  /* her line is over once she has stopped speaking -- measured, not read off
-     the clip, whose length a server that cannot send part of a file leaves
-     unknown for an Ogg until it has played through. A line she said holds
-     for that and a breath (readTime); a line with no voice, to be read. */
-  if(s.lineAt!=null && s.quietAt==null && !voiceBusy()){
-    s.quietAt = t;
-    if(voHeard.has(s.voId)) s.vo = t - s.lineAt;
-  }
-  if(b.act==='handoff'){
-    if(G.cmd && !G.cmd.ready && t >= STORY_NEXT_AT && s.quietAt!=null && t - s.quietAt >= STORY_NEXT_BREATH){
-      G.cmd.ready = true;
-      const key = $('cmdNext');
-      key.disabled = false; key.classList.add('is-in'); key.focus({preventScroll:true});
-    }
-  }
-  if(s.beat < STORY_BEATS.length-1 && beatDone()) nextBeat();
-}
-/* a straggler's soles: the outposts' ground line, or a little further back */
-const hordeFeet = h => TARGET_BASE_Y - (h.far ? 16 : 0);
-
-/* ---- drawing the story into the world ---------------------------------- */
-/* the stragglers, drawn like any zombie — the far ones a shade into the mist */
-function drawStoryHorde(){
-  const s = G.story; if(!s || !s.fly) return;
-  [...s.horde].sort((a,b)=>(b.far - a.far)).forEach(h=>{
-    const x = h.wx - G.cameraX; if(x < -200 || x > W + 200) return;
-    const t = ZOMBIE_TYPES[h.type];
-    ctx.save();
-    ctx.globalAlpha = h.far ? .8 : 1;
-    drawZombie({type:h.type, scale:h.scale, frame:h.frame, mode:'idle', sway:h.sway,
-                x, y:hordeFeet(h) - t.feetOffset*h.scale});
-    ctx.restore();
-  });
-}
-/* the mission, at a glance: the tank, the five outposts, the safe zone */
-function drawStoryStrip(){
-  const s = G.story; if(!s || s.strip<=0) return;
-  /* on the wall below the ground line: nothing plays there during the story,
-     where the sky above is where the tallest ruins stand their zombies */
-  const w = 640, h = 66, x0 = W/2 - w/2, y0 = 612, mid = y0 + h/2;
-  ctx.save();
-  ctx.globalAlpha = s.strip;
-  roundRectPath(x0, y0, w, h, 20);
-  ctx.fillStyle = 'rgba(8,24,28,.74)'; ctx.fill();
-  ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(240,192,99,.95)'; ctx.stroke();
-  ctx.setLineDash([7,9]); ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,244,200,.55)';
-  ctx.beginPath(); ctx.moveTo(x0 + 92, mid + 14); ctx.lineTo(x0 + w - 104, mid + 14); ctx.stroke();
-  ctx.setLineDash([]);
-  const a = s.clock - s.stripAt;
-  const pop = k => Math.max(0, popSpring(a - .25 - k*.12).y);
-  const stamp = (k, cx, draw)=>{                       // each icon springs in, in turn
-    const p = pop(k); if(p<=0) return;
-    ctx.save(); ctx.translate(cx, mid + 22); ctx.scale(p, p); draw(); ctx.restore();
-  };
-  const hs = SP.hull;
-  stamp(0, x0 + 52, ()=>ctx.drawImage(IMGS.tank, hs[0],hs[1],hs[2],hs[3], -34, -24, 68, 22));
-  G.levelNodes.forEach((n, i)=>{
-    const passed = G.cameraX + W*.5 > n.worldX + n.tower.w*.5 || !s.fly;
-    stamp(1 + i, x0 + 150 + i*82, ()=>{
-      const type = ZOMBIE_TYPES[n.zombie.type] ? n.zombie.type : 'shambler', k = 44/ZOMBIE_TYPES[type].height;
-      ctx.globalAlpha *= passed ? 1 : .45;
-      drawZombie({type, scale:k, frame:0, mode:'idle', x:0, y:-ZOMBIE_TYPES[type].feetOffset*k});
-    });
-  });
-  const arrived = G.cameraX >= safeZoneCamera() - 60 || !s.fly;
-  stamp(6, x0 + w - 56, ()=>{
-    if(arrived){                                     // the goal lights up once we've seen it
-      const g = ctx.createRadialGradient(0, -18, 0, 0, -18, 46);
-      g.addColorStop(0, 'rgba(120,200,255,.55)'); g.addColorStop(1, 'rgba(120,200,255,0)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, -18, 46, 0, 7); ctx.fill();
-    }
-    ctx.drawImage(IMGS.safeZone, -44, -40, 88, 88*SZ.h/SZ.w);
-  });
-  ctx.restore();
-}
-/* everything the story lays over the finished frame: the mission strip, and
-   the whip's dip to black */
-function drawStoryOverlay(){
-  const s = G.story;
-  if(s) drawStoryStrip();
-  let black = 0;
-  if(s && s.whip) black = Math.sin(Math.PI*clamp01(s.whip.t/STORY_FLY.whip))*.92;
-  if(black>0){
-    ctx.save(); ctx.globalAlpha = black; ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); ctx.restore();
-  }
-}
-/* beat 8: each side's name, on a tag in its own colour, where the round's
-   measurement cards would stand */
-function drawStorySides(){
-  const s = G.story; if(!s || G.guideAlpha<=.01) return;
-  const tri = trigTriangle(); if(!tri) return;
-  const clearOfTank = TANK.nose() + 10;
-  const AT = {
-    adj:{x:tri.ax+(tri.bx-tri.ax)/2, y:tri.by+7, align:'center', hang:true, minLeft:clearOfTank},
-    opp:{x:tri.bx+22,                y:(tri.by+tri.cy)/2, align:'left'},
-    hyp:{x:(tri.ax+tri.cx)/2 - 26,   y:(tri.ay+tri.cy)/2 - 38, align:'right'}
-  };
-  ['hyp','opp','adj'].forEach(k=>{
-    const u = s.hl[k]; if(u<=.01) return;
-    const p = AT[k], label = t(SIDE_WORD[k]);
-    ctx.save(); ctx.globalAlpha *= clamp01(u);
-    ctx.font = `800 19px ${FONT}`;
-    const w = ctx.measureText(label).width + 30, h = 34;
-    let left = p.align==='center' ? p.x - w/2 : p.align==='left' ? p.x : p.x - w;
-    if(p.minLeft!=null) left = Math.max(left, p.minLeft);
-    const top = (p.hang ? p.y : p.y - h/2) + (1-u)*8;
-    roundRectPath(left, top, w, h, 11);
-    ctx.fillStyle = SIDE_HUE[k].tag; ctx.fill();
-    ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.stroke();
-    guideText(label, left + w/2, top + h/2 + 1, {size:19, fill:'#fff', outline:'rgba(20,10,4,.55)'});
-    ctx.restore();
-  });
-}
-
 /* ============================================================
-   THE OUTPOSTS' FORTIFICATIONS — the barriers the story promises, on the
+   THE OUTPOSTS' FORTIFICATIONS — the barriers on the way to safety, on the
    real level: barricades, hedgehogs and wire behind every zombie's ruin,
    and a last line of them before the safe zone's gate. Back-lane dressing
    on the ruins' own ground line, always to a ruin's RIGHT: the triangle,
@@ -3514,7 +2771,6 @@ function resetWorld(){
   G.levelNodes = buildLevelNodes();
   G.cameraX=levelRestCamera(0); G.tankWorldX=levelRestTankX(0); G.tankVel=0;
   G.drive=null; G.dustT=0; G.guideAlpha=1;
-  G.cmd=null; endStory();
   G.outro=null; hideCaption();
   activateLevel(0, true);
 }
@@ -3750,11 +3006,6 @@ addEventListener('keydown', e=>{
     else if(e.key==='h' || e.key==='H'){ e.preventDefault(); pressHint(); }
     return;
   }
-  // once she has asked, Enter and Space press NEXT for her. Nothing else
-  // moves the story or a scene on: every one of them plays out in full
-  if(G.state===GameState.COMMANDER && G.cmd && G.cmd.ready && (e.key==='Enter' || e.key===' ')){
-    e.preventDefault(); flashPress($('cmdNext')); pressCommanderNext(); return;
-  }
   if(G.state===GameState.AIMING){
     if(e.key==='ArrowUp'){ nudge(1); flashPress($('upBtn')); e.preventDefault(); }
     if(e.key==='ArrowDown'){ nudge(-1); flashPress($('downBtn')); e.preventDefault(); }
@@ -3833,10 +3084,8 @@ $('trigClose').addEventListener('click', ()=>{ AU.click(); closeTrigSheet(); });
 $('trigSheet').addEventListener('pointerdown', e=>{
   if(e.target === $('trigSheet')){ AU.click(); closeTrigSheet(); }
 });
-$('cmdNext').addEventListener('click', pressCommanderNext);
-/* The world itself takes no taps: the story, the roll-in, the briefing,
-   the hatch scene and the ending all play out in full, so every learner
-   walks through all of it, and NEXT is the only way on from the story. */
+/* The world itself takes no taps: the roll-in, the briefing and the ending
+   all play out in full. */
 let startingMission = false;
 /* The title screen is the painted plate and one button, so the mute,
    music, fullscreen and how-to plates are gone. AU.setMuted /
@@ -3863,8 +3112,7 @@ function titleMarkup(ready=true){
                 title="${t('Start — or press Enter')}">${ready ? startLabel() : t('LOADING')}</button>
       </div>`;
 }
-/* START ▶ — the platform's own word for this key, with the same play arrow
-   the storyboard puts on its NEXT ▶ */
+/* START ▶ — the platform's own word for this key, with a play arrow */
 function startLabel(){
   return `<span>${t('START')}</span><svg viewBox="0 0 24 24" aria-hidden="true">`
     + '<path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z"/></svg>';
@@ -3906,7 +3154,8 @@ function startGame(){
     G.level=0;
     resetWorld();
     initializeLevel(0, {revive:true, enter:'none'});
-    beginStory();
+    preloadVO();                   // her lines, so the first word of each is on time
+    beginIntro();                  // straight in: the tank rolls up to round one
     startingMission = false;
   }, 420);
 }
@@ -4129,15 +3378,14 @@ function winGame(){
       <button type="button" class="bigBtn" id="replayBtn" onclick="replayMission()">${replayLabel()}</button>
     </div>`, 'is-win');
 }
-/* REPLAY ↺ — the same word-and-glyph key as START ▶ and NEXT ▶, with its
+/* REPLAY ↺ — the same word-and-glyph key as START ▶, with its
    arrow turned back on itself */
 function replayLabel(){
   return `<span>${t('REPLAY')}</span><svg viewBox="0 0 24 24" aria-hidden="true">`
     + '<path d="M12 3.2A9.6 9.6 0 1 1 2.4 12.8H6.6A5.4 5.4 0 1 0 12 7.4V9.9L6 5.3 12 .7Z"/></svg>';
 }
 /* The whole mission again, as a new run: every zombie back on its ruin, a
-   full rack, and the tank rolling in to round one. Not the story — whoever
-   is replaying has already walked through it. */
+   full rack, and the tank rolling in to round one — the way START begins it. */
 window.replayMission = ()=>{
   AU.click(); $('overlay').classList.add('hidden');
   GameBus.launched();          // a second run is a second activity, counted on its own
@@ -4318,8 +3566,7 @@ function update(dt){
   // and otherwise eases toward its rest / travel angle
   if(G.lay) updateLay(dt);
   else G.angleShown += (G.barrelTarget-G.angleShown)*Math.min(1,dt*6.5);
-  const guidesUp = G.state===GameState.BRIEFING || G.state===GameState.AIMING || G.state===GameState.LAYING
-                || !!(G.story && G.story.guides);
+  const guidesUp = G.state===GameState.BRIEFING || G.state===GameState.AIMING || G.state===GameState.LAYING;
   const guideTarget = guidesUp ? 1 : (G.state===GameState.PROJECTILE_FLYING ? .6 : 0);
   G.guideAlpha += (guideTarget-G.guideAlpha)*Math.min(1,dt*8);
   /* The measured lengths are the QUESTION, and the question is over the
@@ -4334,8 +3581,6 @@ function update(dt){
   if(G.shake>0) G.shake=Math.max(0,G.shake-dt*21);
 
   if(G.state===GameState.BRIEFING) updateBriefing(dt);
-  if(G.state===GameState.COMMANDER) updateCommander(dt);
-  if(G.story) updateStory(dt);
 
   updateZombies(dt);
 
@@ -4738,7 +3983,7 @@ const TITLE_BURST = {x:640, y:436, rx:276, ry:250, rays:20,
 /* The fan never changes shape, only its angle, so its twenty blurred rays
    are drawn once, here, and each frame only turns the finished fan.
    Blurring all twenty every frame cost ~40 ms a frame and held the title
-   screen, and the hand-off into the story, to 20 fps. The blur is the same
+   screen, and the start of play, to 20 fps. The blur is the same
    in every direction, so blurring and then turning is the same picture as
    turning and then blurring. */
 function bakeBurstFan(){
@@ -4872,7 +4117,6 @@ function drawZombie(z=G.zombie){
   // crumples ON the roof whatever shape its frame happens to be
   ctx.save();
   ctx.translate(z.x, feetY);
-  if(z.sway) ctx.rotate(z.sway);              // the story's stragglers, shambling on the spot
   // a right-facing sheet is mirrored about the pose's own centre-line, so the
   // flip costs nothing in placement: the anchor still lands on (z.x, feetY)
   if(t.facesRight) ctx.scale(-1, 1);
@@ -5117,12 +4361,6 @@ function drawTriangleLegs(){
   const t = trigTriangle(); if(!t) return;
   const leg = (k, x1, y1, x2, y2, o)=>{
     guideLeg(x1, y1, x2, y2, G.reveal[k], o);
-    const hl = G.story ? G.story.hl[k] : 0;          // the story lights it in its own colour
-    if(hl>0){
-      ctx.save(); ctx.globalAlpha *= hl;
-      guideLeg(x1, y1, x2, y2, G.reveal[k], Object.assign({}, o, SIDE_HUE[k]));
-      ctx.restore();
-    }
   };
   const legs = o=>{
     leg('adj', t.ax,t.ay,t.bx,t.by, o);   // adjacent
@@ -5230,7 +4468,7 @@ function drawGuides(){
   }
 }
 
-function drawTank(pose=commanderPose()){
+function drawTank(){
   const p = TANK.pivot();
   const a = G.angleShown*Math.PI/180;
   const hx = TANK.x - G.recoil*.6;
@@ -5284,72 +4522,7 @@ function drawTank(pose=commanderPose()){
     ctx.restore();
   });
 
-  // the hatch on the turret ring: the lid hinges at the back, so it stands
-  // behind her once it is open, and the pop bursts out from behind her too
-  drawHatchLid(pose.lid);
-  drawPopFx();
-  drawCommander(pose.rise, pose.v);
-}
-
-/* She is cut off by the hole, not by a line: what shows is everything above
-   the hole's centre plus the inside of the hole itself, so the ring's front
-   lip — already painted on the hull — is what hides the rest of her.
-   Her speed squashes and stretches her about the rim: tall on the way out,
-   a touch squat as the spring settles and as she ducks back in. */
-function drawCommander(rise, v=0){
-  const img = IMGS.commander;
-  if(rise<=0 || !img || !img.naturalWidth) return;
-  const {h, cutY} = commanderAt(rise), s = CMDR_SC;
-  const sy = 1 + Math.max(-.07, Math.min(.14, v*.012)), sx = 1 - (sy-1)*.55;
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(h.x-W, h.y-H, W*2, H);
-  ctx.ellipse(h.x, h.y, h.rx, h.ry, 0, 0, Math.PI*2);
-  ctx.clip();
-  ctx.translate(h.x, cutY); ctx.scale(sx, sy);
-  ctx.drawImage(img, -CMDR.cx*s, -CMDR.cut*s, CMDR.w*s, CMDR.h*s);
-  const face = IMGS.commanderFace;
-  if(face && face.naturalWidth && commanderBlinking()){
-    const [fx, fy, fw, fh, x, y] = CMDR_FACE.blink;
-    ctx.drawImage(face, fx, fy, fw, fh, (x-CMDR.cx)*s, (y-CMDR.cut)*s, fw*s, fh*s);
-  }
-  ctx.restore();
-}
-/* Once she's up and still she blinks every few seconds: the first .7 s
-   after she settles, then every 2.2–3.8 s, never on the way back down. Her
-   mouth stays as drawn — flapping it under the caption read as mumbling. */
-function commanderBlinking(){
-  const c = G.cmd;
-  if(!c || c.out!==null) return false;
-  const up = c.t - CMD_IN.pop - CMD_SETTLE;   // seconds she has been out and still
-  for(let k=0, at=.7; at<=up; at += 2.2 + .8*(1 + Math.sin(k*1.7 + .4)), k++)
-    if(up < at + .12) return true;
-  return false;
-}
-
-/* The pop: a ring of air thrown off her and a fan of action lines over the
-   top of her helmet, both gone in under half a second. Drawn behind her, so
-   they only ever show round her silhouette, never across her face. */
-const POP_FX = .42;
-function drawPopFx(){
-  const c = G.cmd; if(!c || c.out!==null) return;
-  const s = c.t - CMD_IN.pop; if(s<0 || s>POP_FX) return;
-  const u = s/POP_FX, e = easeOutCubic(u), f = commanderAt(1).head;
-  const r = 14 + 40*e;
-  ctx.save();
-  ctx.globalAlpha = 1-u;
-  ctx.strokeStyle = '#fff4c8'; ctx.lineCap = 'round';
-  ctx.lineWidth = .8 + 2.6*(1-u);
-  ctx.beginPath(); ctx.ellipse(f.x, f.y, r, r*.86, 0, 0, Math.PI*2); ctx.stroke();
-  ctx.lineWidth = 1 + 1.8*(1-u);
-  for(let i=0;i<7;i++){
-    const a = Math.PI*(1.12 + i*.127), r0 = r + 3, r1 = r0 + 4 + 9*(1-u);
-    ctx.beginPath();
-    ctx.moveTo(f.x + Math.cos(a)*r0, f.y + Math.sin(a)*r0*.86);
-    ctx.lineTo(f.x + Math.cos(a)*r1, f.y + Math.sin(a)*r1*.86);
-    ctx.stroke();
-  }
-  ctx.restore();
+  drawHatchLid(0);         // the hatch on the turret ring, shut
 }
 
 /* The lid: a round plate lying in the ring, which the camera — just above
@@ -5459,7 +4632,6 @@ let last=performance.now();
 function loop(now){
   requestAnimationFrame(loop);
   const dt=Math.min(.05,(now-last)/1000); last=now;
-  if(lessonUp) return;             // the lesson has the window; the scene waits, drawn as it was
   if(G.state===GameState.PREGAME){ if(ambientMotionAllowed()) G.time+=dt; render(); return; }
   if(G.state===GameState.PAUSED || G.frozen){ render(); return; }
   update(dt);
@@ -5474,37 +4646,21 @@ function render(){
     return;
   }
   const nodes = visibleLevelNodes();
-  const pose = commanderPose();
   ctx.save();
   if(G.shake>0) ctx.translate((Math.random()-.5)*G.shake,(Math.random()-.5)*G.shake);
-  // the hatch scene's close-up, and the story's opening crane — the only
-  // times the camera ever leaves 1:1
-  if(pose.zoom>0){
-    const v = commanderView(pose.zoom);
-    ctx.translate(W/2, H/2); ctx.scale(v.z, v.z); ctx.translate(-v.x, -v.y);
-  } else if(G.story && G.story.view){
-    const v = G.story.view, hh = H/(2*v.z);
-    ctx.translate(W/2, H/2); ctx.scale(v.z, v.z);
-    ctx.translate(-W/2, -Math.max(hh, Math.min(H - hh, v.y)));
-  }
   drawBG();
   drawSkyClouds();
   nodes.forEach(node=>drawTower(node.tower));
   drawWorldProps();        // the outposts' barricades, on the ruins' ground line
   nodes.forEach(node=>drawZombie(node.zombie));
-  drawStoryHorde();        // the story's stragglers, standing in the swamp
-  // the world drops back behind her as the camera closes in
-  if(pose.zoom>0){ ctx.fillStyle = `rgba(3,10,14,${.34*pose.zoom})`; ctx.fillRect(0,0,W,H); }
   drawSafeZone('back');    // the compound, and the lit passage behind its gates
-  drawTank(pose);
+  drawTank();
   drawSafeZone('front');   // …whose wall the tank drives in behind, and the gates
   drawTriangleLegs();      // over the tank, faded where it crosses the hull
   drawGuides();            // right angle, θ sweep, the given lengths
-  drawStorySides();        // the story's names for the sides, while it shows them
   drawShell();
   drawParticles();
   ctx.restore();
-  drawStoryOverlay();      // the mission strip, and the whip's dip to black
 }
 
 /* ============================================================
@@ -5528,23 +4684,12 @@ function onAssetsReady(){
   const sp = location.hash.match(/^#previewshot(\d{1,3})$/);
   const auto = location.hash==='#autoplay';
   const pv = location.hash.match(/^#preview(\d)?(f)?$/);   // headless screenshot helper
-  // the two cut-scenes, for tuning: #previewstory3 starts the story at beat 3
-  // (everything before it settled), #previewend the ending from the last
-  // zombie's fall; a number after either (#previewstory3_150, #previewend450)
-  // plays that many hundredths of a second and freezes there, in the scene's
-  // own state, so the HUD stays as the scene has it
-  const stp = location.hash.match(/^#previewstory([1-9])(?:_(\d{1,4}))?$/);
+  // the ending, for tuning: #previewend from the last zombie's fall; a number
+  // after it (#previewend450) plays that many hundredths of a second and
+  // freezes there, in the scene's own state, so the HUD stays as the scene has it
   const ep = location.hash.match(/^#previewend(\d{1,4})?$/);
   const playTo = cs => { for(let k = 0; k < cs/100*60; k++) update(1/60); G.frozen = true; };
-  if(stp){
-    resetWorld(); initializeLevel(0, {revive:true, enter:'none'});
-    $('overlay').classList.add('hidden');
-    beginStory();
-    const n = +stp[1] - 1;
-    for(let i = 0; i < n; i++) settleBeat(i);
-    if(n > 0) enterBeat(n);
-    if(stp[2]) playTo(+stp[2]);
-  } else if(ep){
+  if(ep){
     resetWorld(); initializeLevel(TOTAL_LEVELS-1, {revive:true, enter:'aim'});
     $('overlay').classList.add('hidden');
     G.zombie.dead = true; G.zombie.mode = 'gone';

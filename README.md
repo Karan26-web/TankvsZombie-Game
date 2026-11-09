@@ -1,13 +1,15 @@
 # Tank vs Zombie — Angle Academy (game only)
 
-The game on its own: the opening story, five rounds of finding the angle with
-sin, cos and tan, and the ending in the safe zone. A single static page — no
-build step, nothing to install.
+The game on its own: START, and the tank rolls straight up to the first
+zombie — five rounds of finding the angle with sin, cos and tan, on three
+shells for the mission, and the ending in the safe zone. A single static
+page — no build step, nothing to install.
 
-This is the **game-only** build. The complete project, which also carries
-the learning section that NEXT opens after the story, its design documents
-and its asset tools, is kept separately; this copy differs from it only in
-leaving the lesson out (`LESSON_SRC = null` in `index.html`).
+This is the **game-only** build. The complete project is kept separately:
+it also opens with the commander's story (the fly-over, her hatch scene and
+the triangle's sides), hands over to the learning section after it, and
+carries the design documents and asset tools. Neither the story nor the
+lesson is in this copy.
 
 ## Run it
 
@@ -37,4 +39,4 @@ output directory — and every push to `main` redeploys it.
 The voice-over is Ogg Opus. It plays in Chrome, Edge, Firefox and on
 Android; Safari plays Ogg only from 18.4 (iOS 18.4). Where a browser can't
 play it (older iPhones and iPads, or a language not yet recorded), the game
-carries on without her voice, pacing her lines by their length instead.
+carries on without her voice: her lines still show on screen.
